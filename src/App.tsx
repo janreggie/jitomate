@@ -1,10 +1,15 @@
 import './App.css'
 import React from 'react'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Main from './components/Main'
 
 function App () {
   return (
     <div className="App">
-      Jitomate is a 25+5 clock.
+      <Header />
+      <Main />
+      <Footer />
     </div>
   )
 }
