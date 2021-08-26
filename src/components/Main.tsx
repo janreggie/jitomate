@@ -7,7 +7,11 @@ function Main () {
 
   return (
     <div>
-      <LengthControls {...{ sessionLength, breakLength, setSessionLength, setBreakLength }} />
+      <LengthControls
+        sessionLength={sessionLength}
+        setSessionLength={setSessionLength}
+        breakLength={breakLength}
+        setBreakLength={setBreakLength} />
     </div>
   )
 }
