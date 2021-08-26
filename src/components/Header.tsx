@@ -2,9 +2,13 @@ import React from 'react'
 
 function Header () {
   return (
-    <div>
-      This is the header
-    </div>
+    <header>
+      <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+        <div className='container-fluid'>
+          <a className='navbar-brand'>jitomate</a>
+        </div>
+      </nav>
+    </header>
   )
 }
 

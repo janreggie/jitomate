@@ -6,13 +6,15 @@ function Main () {
   const [breakLength, setBreakLength] = useState(5)
 
   return (
-    <div>
+    <main>
+      <div className='container'>
       <LengthControls
         sessionLength={sessionLength}
         setSessionLength={setSessionLength}
         breakLength={breakLength}
         setBreakLength={setBreakLength} />
-    </div>
+      </div>
+    </main>
   )
 }
 

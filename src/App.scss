@@ -1,0 +1,20 @@
+main {
+  padding: 1em 1em 0;
+}
+
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+footer {
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  a {
+    color: inherit;
+    text-decoration: underline
+  }
+}
+
