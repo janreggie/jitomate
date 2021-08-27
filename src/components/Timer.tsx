@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { DefaultSessionLength } from '../config'
 
+// For audio (see https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API).
+// @ts-ignore webkitAudioContext may exist in other browsers
+const AudioContext = window.AudioContext || window.webkitAudioContext
+const audioContext = new AudioContext()
+const audioElement = document.querySelector('audio')! // Exclamation pt b/c YES, IT EXISTS! Check /index.html
+const track = audioContext.createMediaElementSource(audioElement)
+track.connect(audioContext.destination)
+
 type timerParameters = {
   sessionLength: number
   breakLength: number
@@ -13,64 +21,56 @@ function Timer (params : timerParameters) {
   const [isOnBreak, setIsOnBreak] = useState(false) // session or break mode?
   const [isRunning, setIsRunning] = useState(false) // is it not paused?
 
-  /** resetEverything reverts the program to its "initial" state */
-  const resetEverything = () => {
+  /** atReset reverts the program to its "initial" state */
+  const atReset = () => {
     setHasStarted(false)
     setIsRunning(false)
+    setIsOnBreak(false)
     params.resetLengths()
+    audioElement.pause()
+    audioElement.currentTime = 0
     setRemainingTime(DefaultSessionLength * 60)
   }
 
-  /** toggleStartStop runs when the start/stop button is pressed */
-  const toggleStartStop = () => {
+  /** atToggleStartStop runs when the start/stop button is pressed */
+  const atToggleStartStop = () => {
     setHasStarted(true)
     setIsRunning(!isRunning)
   }
 
-  /** atTimerReset runs when remainingTime becomes zero */
-  const atTimerReset = () => {
+  // To make sure that remainingTime is "linked" to sessionLength until start button has been pressed
+  useEffect(() => {
+    if (hasStarted) { return }
+    setRemainingTime(params.sessionLength * 60)
+  }, [hasStarted, params.sessionLength])
+
+  // To countdown remaining time
+  useEffect(() => {
+    if (!isRunning) { return }
+
+    const intervalID = setTimeout(() => { setRemainingTime(remainingTime - 1) }, 1000)
+    return () => { clearTimeout(intervalID) }
+  }, [remainingTime, isRunning])
+
+  // To trigger at 00:00
+  useEffect(() => {
+    if (remainingTime !== 0) { return }
+
     if (isOnBreak) {
       setRemainingTime(params.sessionLength * 60)
     } else {
       setRemainingTime(params.breakLength * 60)
     }
     setIsOnBreak(!isOnBreak)
-  }
-
-  // To make sure that remainingTime is "linked" to sessionLength until start button has been pressed
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      if (hasStarted) { return }
-      setRemainingTime(params.sessionLength * 60)
-    }, 10)
-
-    return () => { clearInterval(intervalID) }
-  })
-
-  // To countdown remaining time
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      if (!isRunning) { return }
-
-      setRemainingTime(remainingTime - 1)
-      if (remainingTime === 0) { atTimerReset() }
-
-      if (remainingTime % 50 === 0) {
-        console.log('Remaining time is ', remainingTime, ' on break? ', isOnBreak)
-      }
-    }, 1000)
-
-    return () => {
-      clearInterval(intervalID)
-    }
-  }, [remainingTime, isOnBreak, isRunning])
+    audioElement.play()
+  }, [remainingTime])
 
   return (
     <div>
       <TimerLabel hasStarted={hasStarted} isRunning={isRunning} isOnBreak={isOnBreak} />
       <RemainingTimeDisplay remainingTime={remainingTime} />
-      <button className='btn btn-primary' type='button' onClick={toggleStartStop} id='start_stop'>{isRunning ? 'stop' : 'start'}</button>
-      <button className='btn btn-primary' type='button' onClick={resetEverything} id='reset'>reset</button>
+      <button className='btn btn-primary' type='button' onClick={atToggleStartStop} id='start_stop'>{isRunning ? 'stop' : 'start'}</button>
+      <button className='btn btn-primary' type='button' onClick={atReset} id='reset'>reset</button>
     </div>
   )
 }
