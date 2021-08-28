@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultSessionLength } from '../../config'
 import audioElement from './audioElement'
 import RemainingTimeDisplay from './RemainingTimeDisplay'
 import TimerLabel from './TimerLabel'
@@ -24,7 +23,6 @@ function Timer (params : timerParameters) {
     params.resetLengths()
     audioElement.pause()
     audioElement.currentTime = 0
-    setRemainingTime(DefaultSessionLength * 60)
   }
 
   /** atToggleStartStop runs when the start/stop button is pressed */
