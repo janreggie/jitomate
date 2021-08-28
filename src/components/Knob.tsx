@@ -1,6 +1,6 @@
 import React from 'react'
 
-type knobParameters = {
+export type knobParameters = {
   name: string
   label: string
   value: number

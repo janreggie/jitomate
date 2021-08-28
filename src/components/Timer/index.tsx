@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultSessionLength } from '../config'
+import { DefaultSessionLength } from '../../config'
+import audioElement from './audioElement'
+import RemainingTimeDisplay from './RemainingTimeDisplay'
+import TimerLabel from './TimerLabel'
 
-// For audio (see https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API).
-// @ts-ignore webkitAudioContext may exist in other browsers
-const AudioContext = window.AudioContext || window.webkitAudioContext
-const audioContext = new AudioContext()
-const audioElement = document.querySelector('audio')! // Exclamation pt b/c YES, IT EXISTS! Check /index.html
-const track = audioContext.createMediaElementSource(audioElement)
-track.connect(audioContext.destination)
-
-type timerParameters = {
+export type timerParameters = {
   sessionLength: number
   breakLength: number
   resetLengths: (() => void)
@@ -49,12 +44,13 @@ function Timer (params : timerParameters) {
     if (!isRunning) { return }
 
     const intervalID = setTimeout(() => { setRemainingTime(remainingTime - 1) }, 1000)
-    return () => { clearTimeout(intervalID) }
+    console.log(intervalID)
+    return () => { clearTimeout(intervalID) } // if isRunning gets toggled, make sure to cancel it
   }, [remainingTime, isRunning])
 
   // To trigger at 00:00
   useEffect(() => {
-    if (remainingTime !== 0) { return }
+    if (remainingTime > 0) { return }
 
     if (isOnBreak) {
       setRemainingTime(params.sessionLength * 60)
@@ -72,40 +68,6 @@ function Timer (params : timerParameters) {
       <button className='btn btn-primary' type='button' onClick={atToggleStartStop} id='start_stop'>{isRunning ? 'stop' : 'start'}</button>
       <button className='btn btn-primary' type='button' onClick={atReset} id='reset'>reset</button>
     </div>
-  )
-}
-
-type timerLabelParameters = {
-  hasStarted : boolean
-  isRunning : boolean
-  isOnBreak : boolean
-}
-
-function TimerLabel (params : timerLabelParameters) {
-  const result = () => {
-    if (!params.hasStarted) {
-      return 'press start to start timer'
-    }
-    if (!params.isRunning) {
-      return 'press start to continue timer'
-    }
-    if (params.isOnBreak) {
-      return 'break started'
-    }
-    return 'session started'
-  }
-
-  return (
-    <div id='timer-label'>{ result() }</div>
-  )
-}
-
-function RemainingTimeDisplay ({ remainingTime } : { remainingTime : number}) {
-  const pad = (n : number) => n.toString().padStart(2, '0')
-  const formatTime = (seconds : number) : string => pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60)
-
-  return (
-    <div id='time-left' className='display-4'>{formatTime(remainingTime)}</div>
   )
 }
 
