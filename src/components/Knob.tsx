@@ -24,11 +24,11 @@ function Knob (params: knobParameters) {
   }
 
   return (
-    <div className='p-2 bg-light border'>
+    <div className='p-2 bg-light border knob'>
       <div id={params.name + '-label'}>{params.label}</div>
       <div className='btn-group' id={params.name + '-knob'}>
         <button className='btn btn-secondary' id={params.name + '-decrement'} type='button' onClick={decrement}>-</button>
-        <div className='btn' id={params.name + '-length'}>{params.value}</div>
+        <button className='btn' id={params.name + '-length'} disabled={true}>{params.value}</button>
         <button className='btn btn-secondary' id={params.name + '-increment'} type='button' onClick={increment}>+</button>
       </div>
     </div>

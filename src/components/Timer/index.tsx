@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import audioElement from './audioElement'
 import RemainingTimeDisplay from './RemainingTimeDisplay'
+import StartResetButtons from './StartResetButtons'
 import TimerLabel from './TimerLabel'
 
 export type timerParameters = {
@@ -41,7 +42,9 @@ function Timer (params : timerParameters) {
   useEffect(() => {
     if (!isRunning) { return }
 
-    const intervalID = setTimeout(() => { setRemainingTime(remainingTime - 1) }, 1000)
+    const intervalID = setTimeout(() => {
+      setRemainingTime(remainingTime - 1)
+    }, 1000)
     return () => { clearTimeout(intervalID) } // if isRunning gets toggled, make sure to cancel it
   }, [remainingTime, isRunning])
 
@@ -59,11 +62,10 @@ function Timer (params : timerParameters) {
   }, [remainingTime])
 
   return (
-    <div>
+    <div className='p-2' id='timer'>
       <TimerLabel hasStarted={hasStarted} isRunning={isRunning} isOnBreak={isOnBreak} />
       <RemainingTimeDisplay remainingTime={remainingTime} />
-      <button className='btn btn-primary' type='button' onClick={atToggleStartStop} id='start_stop'>{isRunning ? 'stop' : 'start'}</button>
-      <button className='btn btn-primary' type='button' onClick={atReset} id='reset'>reset</button>
+      <StartResetButtons isRunning={isRunning} atToggleStartStop={atToggleStartStop} atReset={atReset} />
     </div>
   )
 }

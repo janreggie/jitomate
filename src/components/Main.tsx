@@ -8,17 +8,17 @@ function Main () {
   const [breakLength, setBreakLength] = useState(DefaultBreakLength)
 
   return (
-    <main className='container'>
-      <LengthControls
-        sessionLength={sessionLength}
-        setSessionLength={setSessionLength}
-        breakLength={breakLength}
-        setBreakLength={setBreakLength} />
+    <main className='border text-center'>
       <Timer
         sessionLength={sessionLength}
         breakLength={breakLength}
         resetLengths={() => { setSessionLength(DefaultSessionLength); setBreakLength(DefaultBreakLength) }}
         />
+      <LengthControls
+        sessionLength={sessionLength}
+        setSessionLength={setSessionLength}
+        breakLength={breakLength}
+        setBreakLength={setBreakLength} />
     </main>
   )
 }

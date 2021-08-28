@@ -5,7 +5,7 @@ function RemainingTimeDisplay ({ remainingTime } : { remainingTime : number}) {
   const formatTime = (seconds : number) : string => pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60)
 
   return (
-    <div id='time-left' className='display-4'>{formatTime(remainingTime)}</div>
+    <div id='time-left'>{formatTime(remainingTime)}</div>
   )
 }
 

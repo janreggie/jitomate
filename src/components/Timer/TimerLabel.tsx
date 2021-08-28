@@ -7,7 +7,7 @@ export type timerLabelParameters = {
 }
 
 function TimerLabel (params : timerLabelParameters) {
-  const result = () => {
+  const labelText = () => {
     if (!params.hasStarted) {
       return 'press start to start timer'
     }
@@ -21,7 +21,7 @@ function TimerLabel (params : timerLabelParameters) {
   }
 
   return (
-    <div id='timer-label'>{ result() }</div>
+    <div id='timer-label'>{ labelText() }</div>
   )
 }
 

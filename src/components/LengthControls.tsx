@@ -10,21 +10,25 @@ type lengthControlsParameters = {
 
 function LengthControls (params : lengthControlsParameters) {
   return (
-    <div>
-      <Knob
-        name='session'
-        label='Session Length'
-        value={params.sessionLength}
-        setValue={params.setSessionLength}
-        stepSize={1}
-        maximum={60} />
-      <Knob
-        name='break'
-        label='Break Length'
-        value={params.breakLength}
-        setValue={params.setBreakLength}
-        stepSize={1}
-        maximum={60} />
+    <div className='row' id='length-controls'>
+      <div className='col'>
+        <Knob
+          name='session'
+          label='Session Length'
+          value={params.sessionLength}
+          setValue={params.setSessionLength}
+          stepSize={1}
+          maximum={60} />
+      </div>
+      <div className='col'>
+        <Knob
+          name='break'
+          label='Break Length'
+          value={params.breakLength}
+          setValue={params.setBreakLength}
+          stepSize={1}
+          maximum={60} />
+      </div>
     </div>
   )
 }
