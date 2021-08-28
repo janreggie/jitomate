@@ -5,7 +5,8 @@ function Header () {
     <header id='header'>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
-          <a className='navbar-brand'>jitomate</a>
+          <a></a>{/* Empty to make sure navbar-brand is aligned to the right */}
+          <a className='navbar-brand d-flex'>jitomate 🍅</a>
         </div>
       </nav>
     </header>
