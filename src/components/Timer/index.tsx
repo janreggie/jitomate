@@ -24,6 +24,7 @@ function Timer (params : timerParameters) {
     params.resetLengths()
     audioElement.pause()
     audioElement.currentTime = 0
+    setRemainingTime(params.sessionLength * 60) // While this may seem unnecessary due to useEffect, Test 11 screws up if this isn't present...
   }
 
   /** atToggleStartStop runs when the start/stop button is pressed */
