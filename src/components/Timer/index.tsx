@@ -42,7 +42,6 @@ function Timer (params : timerParameters) {
     if (!isRunning) { return }
 
     const intervalID = setTimeout(() => { setRemainingTime(remainingTime - 1) }, 1000)
-    console.log(intervalID)
     return () => { clearTimeout(intervalID) } // if isRunning gets toggled, make sure to cancel it
   }, [remainingTime, isRunning])
 
