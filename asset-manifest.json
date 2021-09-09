@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/jitomate/static/css/main.053338be.chunk.css",
+    "main.css": "/jitomate/static/css/main.208fb6c3.chunk.css",
     "main.js": "/jitomate/static/js/main.5060db75.chunk.js",
     "main.js.map": "/jitomate/static/js/main.5060db75.chunk.js.map",
     "runtime-main.js": "/jitomate/static/js/runtime-main.2c62bb91.js",
@@ -12,14 +12,14 @@
     "static/js/3.539efe04.chunk.js.map": "/jitomate/static/js/3.539efe04.chunk.js.map",
     "index.html": "/jitomate/index.html",
     "static/css/2.983f79de.chunk.css.map": "/jitomate/static/css/2.983f79de.chunk.css.map",
-    "static/css/main.053338be.chunk.css.map": "/jitomate/static/css/main.053338be.chunk.css.map",
+    "static/css/main.208fb6c3.chunk.css.map": "/jitomate/static/css/main.208fb6c3.chunk.css.map",
     "static/js/2.ee5b7adf.chunk.js.LICENSE.txt": "/jitomate/static/js/2.ee5b7adf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2c62bb91.js",
     "static/css/2.983f79de.chunk.css",
     "static/js/2.ee5b7adf.chunk.js",
-    "static/css/main.053338be.chunk.css",
+    "static/css/main.208fb6c3.chunk.css",
     "static/js/main.5060db75.chunk.js"
   ]
 }
